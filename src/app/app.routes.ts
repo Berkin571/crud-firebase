@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: ExpenseComponent,
   },
   {
-    path: 'expense-form/:id',
+    path: 'expense-form',
     component: ExpenseFormComponent,
   },
 ];

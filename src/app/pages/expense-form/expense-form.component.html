@@ -1,1 +1,49 @@
-<p>expense-form works!</p>
+<div class="row">
+  <div class="col-lg-6">
+    <h4>Angaben zu einer Ausgabe</h4>
+
+    <form [formGroup]="expenseForm" (submit)="onSubmit()">
+      <div class="mb-3">
+        <label for="price">Preis</label>
+        <input
+          type="text"
+          id="price"
+          class="form-control"
+          placeholder="Preis"
+          formControlName="price"
+        />
+        @if (hasError('price', 'required')) {<span class="form-text text-danger"
+          >Preis ist ein Pflichtfeld</span
+        >}
+      </div>
+      <div class="mb-3">
+        <label for="title">Titel</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          formControlName="title"
+        />
+        @if (hasError('title', 'required')) {<span class="form-text text-danger"
+          >Titel ist ein Pflichtfeld</span
+        >}
+      </div>
+      <div class="mb-3">
+        <label for="desc">Beschreibung</label>
+        <textarea
+          type="text"
+          id="desc"
+          class="form-control"
+          formControlName="price"
+        ></textarea>
+        @if (hasError('desc', 'minLength')) {<span class="form-text text-danger"
+          >Beschreibung....</span
+        >} @if (hasError('desc', 'maxLength')) {<span
+          class="form-text text-danger"
+          >Beschreibung....</span
+        >}
+      </div>
+      <button type="submit" class="btn btn-success">Speichern</button>
+    </form>
+  </div>
+</div>
