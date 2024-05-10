@@ -9,7 +9,6 @@
           type="text"
           id="price"
           class="form-control"
-          placeholder="Preis"
           formControlName="price"
         />
         @if (hasError('price', 'required')) {<span class="form-text text-danger"
@@ -29,16 +28,17 @@
         >}
       </div>
       <div class="mb-3">
-        <label for="desc">Beschreibung</label>
+        <label for="description">Beschreibung</label>
         <textarea
           type="text"
-          id="desc"
+          id="description"
           class="form-control"
-          formControlName="price"
+          formControlName="description"
         ></textarea>
-        @if (hasError('desc', 'minLength')) {<span class="form-text text-danger"
+        @if (hasError('description', 'minLength')) {<span
+          class="form-text text-danger"
           >Beschreibung....</span
-        >} @if (hasError('desc', 'maxLength')) {<span
+        >} @if (hasError('description', 'maxLength')) {<span
           class="form-text text-danger"
           >Beschreibung....</span
         >}

@@ -1,1 +1,1 @@
-export { ExpenseComponent } from './expense/expense.component';
+export { ExpenseService } from './expense/expense.service';

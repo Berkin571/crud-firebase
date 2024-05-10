@@ -11,4 +11,8 @@ export const routes: Routes = [
     path: 'expense-form',
     component: ExpenseFormComponent,
   },
+  {
+    path: 'expense-form/:id',
+    component: ExpenseFormComponent,
+  },
 ];
