@@ -4,6 +4,18 @@
 
     <form [formGroup]="expenseForm" (submit)="onSubmit()">
       <div class="mb-3">
+        <label for="date">Datum</label>
+        <input
+          type="date"
+          id="date"
+          class="form-control"
+          formControlName="date"
+        />
+        @if (hasError('date', 'required')) {<span class="form-text text-danger"
+          >Das Datum ist ein Pflichtfeld</span
+        >}
+      </div>
+      <div class="mb-3">
         <label for="price">Preis</label>
         <input
           type="text"

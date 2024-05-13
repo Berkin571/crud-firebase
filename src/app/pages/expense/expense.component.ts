@@ -15,37 +15,59 @@ import { IExpense } from '../../models';
 export class ExpenseComponent implements OnInit {
   expenses: IExpense[] = [];
   totalExpenses: number = 0;
+  currentMonth: Date = new Date();
 
   constructor(private expenseService: ExpenseService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getAllExpenses();
+    this.fetchExpensesForMonth(this.currentMonth);
   }
 
-  getAllExpenses() {
+  fetchExpensesForMonth(date: Date) {
+    const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
     this.expenseService
       .getAllExpenses()
       ?.snapshotChanges()
-      .subscribe({
-        next: (data) => {
-          this.expenses = [];
+      .subscribe((data) => {
+        this.expenses = [];
+        this.totalExpenses = 0;
 
-          data.forEach((item) => {
-            let expense = item.payload.toJSON() as IExpense;
-            this.totalExpenses = parseInt(expense.price);
+        data.forEach((item) => {
+          let expense = item.payload.toJSON() as IExpense & { date: string };
+          const expenseDate = new Date(expense.date);
 
+          if (expenseDate >= startOfMonth && expenseDate <= endOfMonth) {
             this.expenses.push({
-              key: item.key || '',
+              key: item.key ?? '',
               price: expense.price,
               title: expense.title,
               description: expense.description,
+              date: expense.date,
             });
-          });
-        },
+            this.totalExpenses += parseFloat(expense.price);
+          }
+        });
       });
   }
 
   editExpense(key: string) {
     this.router.navigate(['/expense-form/' + key]);
+  }
+
+  deleteExpense(key: string) {
+    this.expenseService.deleteExpense(key)?.then(() => {
+      this.fetchExpensesForMonth(this.currentMonth);
+    });
+  }
+
+  changeMonth(offset: number) {
+    const newDate = new Date(this.currentMonth);
+    newDate.setMonth(this.currentMonth.getMonth() + offset);
+
+    this.currentMonth = newDate;
+
+    this.fetchExpensesForMonth(this.currentMonth);
   }
 }

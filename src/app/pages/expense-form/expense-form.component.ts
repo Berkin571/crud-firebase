@@ -29,6 +29,7 @@ export class ExpenseFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.expenseForm = this.fb.group({
+      date: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [
